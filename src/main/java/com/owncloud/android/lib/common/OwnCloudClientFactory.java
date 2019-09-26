@@ -34,6 +34,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
@@ -141,7 +142,7 @@ public class OwnCloudClientFactory {
         }  catch (GeneralSecurityException e) {
             Log_OC.e(TAG, "Advanced SSL Context could not be loaded. Default SSL management in" +
                     " the system will be used for HTTPS connections", e);
-            
+
         } catch (IOException e) {
             Log_OC.e(TAG, "The local server truststore could not be read. Default SSL management" +
                     " in the system will be used for HTTPS connections", e);
@@ -150,7 +151,35 @@ public class OwnCloudClientFactory {
         OwnCloudClient client = new OwnCloudClient(uri, NetworkUtils.getMultiThreadedConnManager());
         client.setDefaultTimeouts(DEFAULT_DATA_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT);
         client.setFollowRedirects(followRedirects);
-        
+
+        return client;
+    }
+
+    /**
+     * Creates a OwnCloudClient to access a URL and sets the desired parameters for ownCloud
+     * client connections.
+     *
+     * @param uri     URL to the ownCloud server; BASE ENTRY POINT, not WebDavPATH
+     * @param context Android context where the OwnCloudClient is being created.
+     * @return A OwnCloudClient object ready to be used
+     */
+    public static NextcloudClient createNextcloudClient(Uri uri, Context context, boolean followRedirects) {
+        try {
+            NetworkUtils.registerAdvancedSslContext(true, context);
+        } catch (GeneralSecurityException e) {
+            Log_OC.e(TAG, "Advanced SSL Context could not be loaded. Default SSL management in" +
+                    " the system will be used for HTTPS connections", e);
+
+        } catch (IOException e) {
+            Log_OC.e(TAG, "The local server truststore could not be read. Default SSL management" +
+                    " in the system will be used for HTTPS connections", e);
+        }
+
+        NextcloudClient client = new NextcloudClient(uri, context);
+        // TODO v2
+        //client.setDefaultTimeouts(DEFAULT_DATA_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT);
+        // client.setFollowRedirects(followRedirects);
+
         return client;
     }
 }
