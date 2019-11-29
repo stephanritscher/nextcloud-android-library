@@ -47,8 +47,7 @@ class GetUserInfoRemoteOperationTest : AbstractIT() {
         val userInfo = userInfoResult.data[0] as UserInfo
         assertEquals("User One", userInfo.displayName)
         assertEquals("user1", userInfo.id)
-        assertEquals(GetUserInfoRemoteOperation.SPACE_UNLIMITED,
-                userInfo.quota?.quota)
+        assertEquals(GetUserInfoRemoteOperation.SPACE_UNLIMITED, userInfo.quota?.quota)
     }
 
     @Test
