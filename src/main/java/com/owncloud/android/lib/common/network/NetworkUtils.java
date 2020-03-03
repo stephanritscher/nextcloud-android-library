@@ -46,7 +46,10 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.KeyManager;
 import javax.net.ssl.TrustManager;
+
+import de.ritscher.ssl.InteractiveKeyManager;
 
 public class NetworkUtils {
     
@@ -107,6 +110,8 @@ public class NetworkUtils {
             KeyStore trustStore = getKnownServersStore(context);
             AdvancedX509TrustManager trustMgr = new AdvancedX509TrustManager(trustStore);
             TrustManager[] tms = new TrustManager[] { trustMgr };
+	        InteractiveKeyManager keyMgr = new InteractiveKeyManager(context);
+	        KeyManager[] kms = new KeyManager[] { keyMgr };
                 
             SSLContext sslContext;
             try {
@@ -117,10 +122,10 @@ public class NetworkUtils {
             	// should be available in any device; see reference of supported protocols in 
             	// http://developer.android.com/reference/javax/net/ssl/SSLSocket.html
             }
-            sslContext.init(null, tms, null);
+            sslContext.init(kms, tms, null);
                     
             mHostnameVerifier = new BrowserCompatHostnameVerifier();
-            mAdvancedSslSocketFactory = new AdvancedSslSocketFactory(sslContext, trustMgr, mHostnameVerifier);
+            mAdvancedSslSocketFactory = new AdvancedSslSocketFactory(sslContext, trustMgr, mHostnameVerifier, context);
         }
         return mAdvancedSslSocketFactory;
     }
