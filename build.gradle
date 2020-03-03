@@ -56,6 +56,7 @@ ext {
 }
 
 dependencies {
+    implementation 'com.github.stephanritscher:InteractiveKeyManager:0.1'
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.1'
     api 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.gitlab.bitfireAT:dav4jvm:2.1.2' // in transition phase, we use old and new libs

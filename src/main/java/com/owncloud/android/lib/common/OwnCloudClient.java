@@ -25,6 +25,7 @@
 
 package com.owncloud.android.lib.common;
 
+import android.content.Context;
 import android.net.Uri;
 
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -51,6 +52,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
+import de.ritscher.ssl.InteractiveKeyManager;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -71,17 +73,19 @@ public class OwnCloudClient extends HttpClient {
     
     @Getter private Uri baseUri;
     @Setter private String userId;
+    private Context context;
 
     /**
      * Constructor
      */
-    public OwnCloudClient(Uri baseUri, HttpConnectionManager connectionMgr) {
+    public OwnCloudClient(Uri baseUri, HttpConnectionManager connectionMgr, Context context) {
         super(connectionMgr);
         
         if (baseUri == null) {
         	throw new IllegalArgumentException("Parameter 'baseUri' cannot be NULL");
         }
         this.baseUri = baseUri;
+        this.context = context;
         
         mInstanceNumber = sIntanceCounter++;
         Log_OC.d(TAG + " #" + mInstanceNumber, "Creating OwnCloudClient");
@@ -226,6 +230,10 @@ public class OwnCloudClient extends HttpClient {
 //	        logCookiesAtState("after");
 //	        logSetCookiesAtResponse(method.getResponseHeaders());
 
+            if (status >= 400 && status < 500) {
+                Log_OC.w(TAG, "executeMethod failed with error code " + status + "; remove key chain aliases disabled");
+                //new InteractiveKeyManager(context).removeKeys(baseUri.getHost(), baseUri.getPort());
+            }
             return status;
 
         } catch (IOException e) {
