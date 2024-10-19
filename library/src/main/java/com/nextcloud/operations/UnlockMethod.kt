@@ -35,7 +35,7 @@ import okhttp3.Request
  */
 class UnlockMethod(
     uri: String,
-    useOcsApiRequestHeader: Boolean
+    useOcsApiRequestHeader: Boolean,
 ) : OkHttpMethodBase(uri, useOcsApiRequestHeader) {
     override fun applyType(temp: Request.Builder) {
         temp.method("UNLOCK", null)

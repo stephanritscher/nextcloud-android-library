@@ -52,7 +52,7 @@ import javax.net.ssl.TrustManager
 class NextcloudClient private constructor(
     val delegate: NextcloudUriDelegate,
     var credentials: String,
-    val client: OkHttpClient
+    val client: OkHttpClient,
 ) : NextcloudUriProvider by delegate {
     var followRedirects = true
 
@@ -60,7 +60,7 @@ class NextcloudClient private constructor(
         baseUri: Uri,
         userId: String,
         credentials: String,
-        client: OkHttpClient
+        client: OkHttpClient,
     ) : this(NextcloudUriDelegate(baseUri, userId), credentials, client)
 
     var userId: String
@@ -97,7 +97,7 @@ class NextcloudClient private constructor(
         baseUri: Uri,
         userId: String,
         credentials: String,
-        context: Context
+        context: Context,
     ) : this(baseUri, userId, credentials, createDefaultClient(context))
 
     @Suppress("TooGenericExceptionCaught")
@@ -129,9 +129,10 @@ class NextcloudClient private constructor(
         var status = method.getStatusCode()
         val result = RedirectionPath(status, OwnCloudClient.MAX_REDIRECTIONS_COUNT)
 
-        val statusIsRedirection = status == HttpStatus.SC_MOVED_PERMANENTLY ||
-            status == HttpStatus.SC_MOVED_TEMPORARILY ||
-            status == HttpStatus.SC_TEMPORARY_REDIRECT
+        val statusIsRedirection =
+            status == HttpStatus.SC_MOVED_PERMANENTLY ||
+                status == HttpStatus.SC_MOVED_TEMPORARILY ||
+                status == HttpStatus.SC_TEMPORARY_REDIRECT
         while (redirectionsCount < OwnCloudClient.MAX_REDIRECTIONS_COUNT && statusIsRedirection) {
             var location = method.getResponseHeader("Location")
             if (location == null) {

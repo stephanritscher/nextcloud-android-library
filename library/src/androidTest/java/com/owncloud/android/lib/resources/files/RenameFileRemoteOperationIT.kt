@@ -42,13 +42,13 @@ class RenameFileRemoteOperationIT : AbstractIT() {
         assertTrue(
             UploadFileRemoteOperation(filePath, oldRemotePath, "image/jpg", RANDOM_MTIME)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         assertTrue(
             RenameFileRemoteOperation("file1.jpg", oldRemotePath, "file2.png", false)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         assertFalse(ExistenceCheckRemoteOperation(oldRemotePath, false).execute(client).isSuccess)
@@ -63,17 +63,18 @@ class RenameFileRemoteOperationIT : AbstractIT() {
         assertTrue(
             UploadFileRemoteOperation(filePath, firstRemotePath, "image/jpg", RANDOM_MTIME)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         assertTrue(
             UploadFileRemoteOperation(filePath, secondRemotePath, "image/jpg", RANDOM_MTIME)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
-        val result = RenameFileRemoteOperation("file1.jpg", firstRemotePath, "file2.png", false)
-            .execute(client)
+        val result =
+            RenameFileRemoteOperation("file1.jpg", firstRemotePath, "file2.png", false)
+                .execute(client)
 
         assertFalse(result.isSuccess)
         assertEquals(RemoteOperationResult.ResultCode.INVALID_OVERWRITE, result.code)

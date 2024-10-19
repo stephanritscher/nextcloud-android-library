@@ -40,7 +40,7 @@ class CheckEtagRemoteOperationIT : AbstractIT() {
         val remotePath = "/eTagFile.txt"
         assertTrue(
             UploadFileRemoteOperation(filePath, remotePath, "image/jpg", "1464818400")
-                .execute(client).isSuccess
+                .execute(client).isSuccess,
         )
 
         val readResult = ReadFileRemoteOperation(remotePath).execute(client)

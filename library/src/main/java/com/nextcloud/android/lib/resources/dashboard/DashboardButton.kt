@@ -29,5 +29,5 @@ import kotlinx.parcelize.Parcelize
 data class DashboardButton(
     val type: DashBoardButtonType,
     val text: String,
-    val link: String
+    val link: String,
 ) : Parcelable

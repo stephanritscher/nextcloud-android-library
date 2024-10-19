@@ -86,7 +86,7 @@ class StatusIT : AbstractIT() {
         val result = GetPredefinedStatusesRemoteOperation().run(nextcloudClient)
         assertTrue(
             "GetPredefinedStatusesRemoteOperation failed: " + result.logMessage,
-            result.isSuccess
+            result.isSuccess,
         )
 
         val statusesList = result.resultData
@@ -98,7 +98,7 @@ class StatusIT : AbstractIT() {
         val result = ClearStatusMessageRemoteOperation().execute(nextcloudClient)
         assertTrue(
             "ClearStatusMessageRemoteOperation failed: " + result.logMessage,
-            result.isSuccess
+            result.isSuccess,
         )
 
         // verify
@@ -112,18 +112,19 @@ class StatusIT : AbstractIT() {
         var result = GetPredefinedStatusesRemoteOperation().run(nextcloudClient)
         assertTrue(
             "GetPredefinedStatusesRemoteOperation failed: " + result.logMessage,
-            result.isSuccess
+            result.isSuccess,
         )
 
         val statusesList: ArrayList<PredefinedStatus> = result.resultData
         val newCustomStatusMessage = statusesList[2]
         val clearAt = System.currentTimeMillis() / SECOND_IN_MILLIS + HOUR_IN_MINUTES
 
-        result = SetPredefinedCustomStatusMessageRemoteOperation(newCustomStatusMessage.id, clearAt)
-            .execute(nextcloudClient)
+        result =
+            SetPredefinedCustomStatusMessageRemoteOperation(newCustomStatusMessage.id, clearAt)
+                .execute(nextcloudClient)
         assertTrue(
             "SetPredefinedCustomStatusMessageRemoteOperation failed: " + result.logMessage,
-            result.isSuccess
+            result.isSuccess,
         )
 
         // verify
@@ -142,12 +143,13 @@ class StatusIT : AbstractIT() {
         val statusIcon = "☁"
         val clearAt = System.currentTimeMillis() / SECOND_IN_MILLIS + HOUR_IN_MINUTES
 
-        var result = SetUserDefinedCustomStatusMessageRemoteOperation(message, statusIcon, clearAt)
-            .execute(nextcloudClient)
+        var result =
+            SetUserDefinedCustomStatusMessageRemoteOperation(message, statusIcon, clearAt)
+                .execute(nextcloudClient)
 
         assertTrue(
             "SetUserDefinedCustomStatusMessageRemoteOperation failed: " + result.logMessage,
-            result.isSuccess
+            result.isSuccess,
         )
 
         // verify

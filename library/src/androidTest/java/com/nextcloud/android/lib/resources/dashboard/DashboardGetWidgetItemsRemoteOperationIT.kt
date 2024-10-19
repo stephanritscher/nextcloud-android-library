@@ -38,8 +38,9 @@ class DashboardGetWidgetItemsRemoteOperationIT : AbstractIT() {
     @Test
     fun getItems() {
         // only on NC25+
-        val ocCapability = GetCapabilitiesRemoteOperation()
-            .execute(nextcloudClient).singleData as OCCapability
+        val ocCapability =
+            GetCapabilitiesRemoteOperation()
+                .execute(nextcloudClient).singleData as OCCapability
         assumeTrue(ocCapability.version.isNewerOrEqual(NextcloudVersion.nextcloud_25))
 
         // create folder to have some content
@@ -51,9 +52,9 @@ class DashboardGetWidgetItemsRemoteOperationIT : AbstractIT() {
                 client.userId,
                 false,
                 "",
-                OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+                OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER,
             ).execute(client2)
-                .isSuccess
+                .isSuccess,
         )
 
         val widgetId = "activity"

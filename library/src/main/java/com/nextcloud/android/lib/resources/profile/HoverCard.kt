@@ -34,5 +34,5 @@ import java.util.ArrayList
 data class HoverCard(
     val userId: String,
     val displayName: String,
-    val actions: List<Action> = ArrayList()
+    val actions: List<Action> = ArrayList(),
 )

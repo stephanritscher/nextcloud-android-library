@@ -36,5 +36,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DirectEditing(
     val editors: Map<String, Editor> = HashMap(),
-    val creators: Map<String, Creator> = HashMap()
+    val creators: Map<String, Creator> = HashMap(),
 ) : Parcelable

@@ -26,5 +26,5 @@ data class DashboardWidgetItem(
     val title: String,
     val subtitle: String,
     val link: String,
-    val iconUrl: String
+    val iconUrl: String,
 )

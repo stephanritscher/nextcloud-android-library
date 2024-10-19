@@ -39,13 +39,13 @@ class DownloadFileRemoteOperationIT : AbstractIT() {
         val remotePath = "/download.jpg"
         assertTrue(
             UploadFileRemoteOperation(filePath, remotePath, "image/jpg", "1464818400")
-                .execute(client).isSuccess
+                .execute(client).isSuccess,
         )
 
         assertTrue(
             DownloadFileRemoteOperation(remotePath, context.externalCacheDir?.absolutePath)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         val oldFile = File(filePath)

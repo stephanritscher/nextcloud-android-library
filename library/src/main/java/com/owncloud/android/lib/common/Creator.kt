@@ -37,5 +37,5 @@ data class Creator(
     val name: String,
     val extension: String,
     val mimetype: String,
-    val templates: Boolean
+    val templates: Boolean,
 ) : Parcelable

@@ -33,5 +33,5 @@ data class Action(
     var appId: String,
     var title: String,
     var icon: String,
-    var hyperlink: String
+    var hyperlink: String,
 )

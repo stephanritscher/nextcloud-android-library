@@ -30,7 +30,7 @@ package com.owncloud.android.lib.resources.activities.model
  */
 data class RichElement(
     var richSubject: String,
-    var richObjectList: MutableList<RichObject>
+    var richObjectList: MutableList<RichObject>,
 ) {
     constructor() : this("", mutableListOf())
 }

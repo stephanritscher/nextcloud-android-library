@@ -43,7 +43,7 @@ import java.io.IOException
 @Suppress("TooManyFunctions")
 abstract class OkHttpMethodBase(
     var uri: String,
-    private val useOcsApiRequestHeader: Boolean
+    private val useOcsApiRequestHeader: Boolean,
 ) {
     companion object {
         const val UNKNOWN_STATUS_CODE: Int = -1
@@ -88,7 +88,10 @@ abstract class OkHttpMethodBase(
      * @param header HTTP request header name
      * @param value HTTP request header value
      */
-    fun addRequestHeader(header: String, value: String) {
+    fun addRequestHeader(
+        header: String,
+        value: String,
+    ) {
         requestHeaders[header] = value
     }
 

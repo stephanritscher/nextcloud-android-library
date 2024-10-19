@@ -42,14 +42,14 @@ import org.junit.Assume
 import org.junit.Test
 
 class ToggleFileLockRemoteOperationIT : AbstractIT() {
-
     @Test
     fun lockUnlockFile() {
         // only on >= NC24
-        val ocCapability = GetCapabilitiesRemoteOperation()
-            .execute(nextcloudClient).singleData as OCCapability
+        val ocCapability =
+            GetCapabilitiesRemoteOperation()
+                .execute(nextcloudClient).singleData as OCCapability
         Assume.assumeTrue(
-            ocCapability.version.isNewerOrEqual(nextcloud_24)
+            ocCapability.version.isNewerOrEqual(nextcloud_24),
         )
 
         // create file
@@ -57,7 +57,7 @@ class ToggleFileLockRemoteOperationIT : AbstractIT() {
         val remotePath = "/text.md"
         assertTrue(
             UploadFileRemoteOperation(filePath, remotePath, "text/markdown", "1464818400")
-                .execute(client).isSuccess
+                .execute(client).isSuccess,
         )
         val initialFile =
             ReadFileRemoteOperation(remotePath).execute(client).singleData as RemoteFile

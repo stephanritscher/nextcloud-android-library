@@ -33,7 +33,8 @@ package com.owncloud.android.lib.resources.status
 enum class CapabilityBooleanType(val value: Int) {
     UNKNOWN(-1),
     FALSE(0),
-    TRUE(1);
+    TRUE(1),
+    ;
 
     val isUnknown: Boolean
         get() = value == -1
@@ -44,17 +45,19 @@ enum class CapabilityBooleanType(val value: Int) {
 
     companion object {
         @JvmStatic
-        fun fromValue(value: Int): CapabilityBooleanType = when (value) {
-            -1 -> UNKNOWN
-            0 -> FALSE
-            1 -> TRUE
-            else -> UNKNOWN
-        }
+        fun fromValue(value: Int): CapabilityBooleanType =
+            when (value) {
+                -1 -> UNKNOWN
+                0 -> FALSE
+                1 -> TRUE
+                else -> UNKNOWN
+            }
 
         @JvmStatic
-        fun fromBooleanValue(boolValue: Boolean): CapabilityBooleanType = when {
-            boolValue -> TRUE
-            else -> FALSE
-        }
+        fun fromBooleanValue(boolValue: Boolean): CapabilityBooleanType =
+            when {
+                boolValue -> TRUE
+                else -> FALSE
+            }
     }
 }

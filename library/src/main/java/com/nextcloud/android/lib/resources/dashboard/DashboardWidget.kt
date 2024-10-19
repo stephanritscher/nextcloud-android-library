@@ -33,5 +33,5 @@ data class DashboardWidget(
     val order: Int,
     @SerializedName("icon_url") val iconUrl: String,
     @SerializedName("item_icons_round") val roundIcons: Boolean,
-    val buttons: List<DashboardButton>?
+    val buttons: List<DashboardButton>?,
 ) : Parcelable

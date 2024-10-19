@@ -39,15 +39,17 @@ class ExistenceCheckRemoteOperationIT : AbstractIT() {
         val notExistingRemotePath = "/notExistingCheckFile.jpg"
         assertTrue(
             UploadFileRemoteOperation(filePath, remotePath, "image/jpg", RANDOM_MTIME)
-                .execute(client).isSuccess
+                .execute(client).isSuccess,
         )
 
-        var existenceResult = ExistenceCheckRemoteOperation(remotePath, false)
-            .execute(client)
+        var existenceResult =
+            ExistenceCheckRemoteOperation(remotePath, false)
+                .execute(client)
         assertTrue(existenceResult.isSuccess)
 
-        existenceResult = ExistenceCheckRemoteOperation(notExistingRemotePath, false)
-            .execute(client)
+        existenceResult =
+            ExistenceCheckRemoteOperation(notExistingRemotePath, false)
+                .execute(client)
         assertFalse(existenceResult.isSuccess)
     }
 }

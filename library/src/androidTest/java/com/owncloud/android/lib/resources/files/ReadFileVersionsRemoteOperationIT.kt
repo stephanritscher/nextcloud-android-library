@@ -34,13 +34,14 @@ class ReadFileVersionsRemoteOperationIT : AbstractIT() {
         val txtFile = getFile(ASSETS__TEXT_FILE_NAME)
         val filePath = "/test.md"
 
-        var uploadResult = UploadFileRemoteOperation(
-            txtFile.absolutePath,
-            filePath,
-            "txt/plain",
-            (System.currentTimeMillis() / MILLI_TO_SECOND).toString()
-        )
-            .execute(client)
+        var uploadResult =
+            UploadFileRemoteOperation(
+                txtFile.absolutePath,
+                filePath,
+                "txt/plain",
+                (System.currentTimeMillis() / MILLI_TO_SECOND).toString(),
+            )
+                .execute(client)
 
         assertTrue("Error uploading file $filePath: $uploadResult", uploadResult.isSuccess)
 
@@ -58,13 +59,14 @@ class ReadFileVersionsRemoteOperationIT : AbstractIT() {
             close()
         }
 
-        uploadResult = UploadFileRemoteOperation(
-            txtFile.absolutePath,
-            filePath,
-            "txt/plain",
-            (System.currentTimeMillis() / MILLI_TO_SECOND).toString()
-        )
-            .execute(client)
+        uploadResult =
+            UploadFileRemoteOperation(
+                txtFile.absolutePath,
+                filePath,
+                "txt/plain",
+                (System.currentTimeMillis() / MILLI_TO_SECOND).toString(),
+            )
+                .execute(client)
 
         assertTrue("Error uploading file $filePath: $uploadResult", uploadResult.isSuccess)
 

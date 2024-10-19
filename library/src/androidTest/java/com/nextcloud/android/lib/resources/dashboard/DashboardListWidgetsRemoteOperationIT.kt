@@ -35,8 +35,9 @@ class DashboardListWidgetsRemoteOperationIT : AbstractIT() {
     @Test
     fun list() {
         // only on NC25+
-        val ocCapability = GetCapabilitiesRemoteOperation()
-            .execute(nextcloudClient).singleData as OCCapability
+        val ocCapability =
+            GetCapabilitiesRemoteOperation()
+                .execute(nextcloudClient).singleData as OCCapability
         Assume.assumeTrue(ocCapability.version.isNewerOrEqual(NextcloudVersion.nextcloud_25))
 
         val result = DashboardListWidgetsRemoteOperation().execute(nextcloudClient)

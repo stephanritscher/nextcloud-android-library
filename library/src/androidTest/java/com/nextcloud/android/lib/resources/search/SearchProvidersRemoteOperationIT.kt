@@ -36,8 +36,9 @@ class SearchProvidersRemoteOperationIT : AbstractIT() {
     @Test
     fun getSearchProviders() {
         // only on NC20+
-        val ocCapability = GetCapabilitiesRemoteOperation()
-            .execute(nextcloudClient).singleData as OCCapability
+        val ocCapability =
+            GetCapabilitiesRemoteOperation()
+                .execute(nextcloudClient).singleData as OCCapability
         assumeTrue(ocCapability.version.isNewerOrEqual(OwnCloudVersion.nextcloud_20))
 
         val result = nextcloudClient.execute(UnifiedSearchProvidersRemoteOperation())
@@ -54,10 +55,11 @@ class SearchProvidersRemoteOperationIT : AbstractIT() {
     @Test
     fun getSearchProvidersOnOldServer() {
         // only on < NC20
-        val ocCapability = GetCapabilitiesRemoteOperation()
-            .execute(nextcloudClient).singleData as OCCapability
+        val ocCapability =
+            GetCapabilitiesRemoteOperation()
+                .execute(nextcloudClient).singleData as OCCapability
         assumeTrue(
-            ocCapability.version.isOlderThan(OwnCloudVersion.nextcloud_20)
+            ocCapability.version.isOlderThan(OwnCloudVersion.nextcloud_20),
         )
 
         val result = nextcloudClient.execute(UnifiedSearchProvidersRemoteOperation())

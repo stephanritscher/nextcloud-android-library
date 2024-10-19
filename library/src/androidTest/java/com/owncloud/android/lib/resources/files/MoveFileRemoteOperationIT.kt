@@ -42,24 +42,24 @@ class MoveFileRemoteOperationIT : AbstractIT() {
         assertTrue(
             UploadFileRemoteOperation(filePath, oldRemotePath, "image/jpg", RANDOM_MTIME)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         assertTrue(
             MoveFileRemoteOperation(oldRemotePath, newRemotePath, false)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         assertFalse(
             ExistenceCheckRemoteOperation(oldRemotePath, false)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
         assertTrue(
             ExistenceCheckRemoteOperation(newRemotePath, false)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
     }
 
@@ -71,32 +71,34 @@ class MoveFileRemoteOperationIT : AbstractIT() {
         assertTrue(
             UploadFileRemoteOperation(filePath, firstRemotePath, "image/jpg", RANDOM_MTIME)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         assertTrue(
             UploadFileRemoteOperation(filePath, secondRemotePath, "image/jpg", RANDOM_MTIME)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         // first not try to overwrite
-        var result = MoveFileRemoteOperation(firstRemotePath, secondRemotePath, false)
-            .execute(client)
+        var result =
+            MoveFileRemoteOperation(firstRemotePath, secondRemotePath, false)
+                .execute(client)
 
         assertFalse(result.isSuccess)
         assertEquals(RemoteOperationResult.ResultCode.INVALID_OVERWRITE, result.code)
 
         // then overwrite
-        result = MoveFileRemoteOperation(firstRemotePath, secondRemotePath, true)
-            .execute(client)
+        result =
+            MoveFileRemoteOperation(firstRemotePath, secondRemotePath, true)
+                .execute(client)
 
         assertTrue(result.isSuccess)
 
         assertTrue(
             ExistenceCheckRemoteOperation(secondRemotePath, false)
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
     }
 }

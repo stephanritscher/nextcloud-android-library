@@ -36,7 +36,6 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.util.concurrent.TimeUnit
 
 class UploadFileRemoteOperationIT : AbstractIT() {
-
     @Test
     fun creationTime() {
         val imageFile = getFile("imageFile.png")
@@ -52,15 +51,16 @@ class UploadFileRemoteOperationIT : AbstractIT() {
         val remotePath = "/test.md"
 
         val creationTimestamp = getCreationTimestamp(File(filePath))
-        val sut = UploadFileRemoteOperation(
-            filePath,
-            remotePath,
-            "text/markdown",
-            "",
-            RANDOM_MTIME,
-            creationTimestamp,
-            true
-        )
+        val sut =
+            UploadFileRemoteOperation(
+                filePath,
+                remotePath,
+                "text/markdown",
+                "",
+                RANDOM_MTIME,
+                creationTimestamp,
+                true,
+            )
         val uploadTimestamp = System.currentTimeMillis() / MILLI_TO_SECOND
 
         val uploadResult = sut.execute(client)
@@ -77,7 +77,7 @@ class UploadFileRemoteOperationIT : AbstractIT() {
         assertEquals(uploadResult.resultData, remoteFile.etag)
         assertTrue(
             uploadTimestamp - TIME_OFFSET < remoteFile.uploadTimestamp ||
-                uploadTimestamp + TIME_OFFSET > remoteFile.uploadTimestamp
+                uploadTimestamp + TIME_OFFSET > remoteFile.uploadTimestamp,
         )
 
         // ReadFolderRemoteOperation
@@ -90,7 +90,7 @@ class UploadFileRemoteOperationIT : AbstractIT() {
         assertEquals(creationTimestamp, remoteFile.creationTimestamp)
         assertTrue(
             uploadTimestamp - TIME_OFFSET < remoteFile.uploadTimestamp ||
-                uploadTimestamp + TIME_OFFSET > remoteFile.uploadTimestamp
+                uploadTimestamp + TIME_OFFSET > remoteFile.uploadTimestamp,
         )
     }
 
@@ -105,7 +105,7 @@ class UploadFileRemoteOperationIT : AbstractIT() {
             } catch (e: IOException) {
                 Log_OC.e(
                     UploadFileRemoteOperation::class.java.simpleName,
-                    "Failed to read creation timestamp for file: " + file.name
+                    "Failed to read creation timestamp for file: " + file.name,
                 )
                 null
             }

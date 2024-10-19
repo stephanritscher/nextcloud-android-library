@@ -26,7 +26,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class SearchResultEntryTest {
-
     @Test
     fun testFilePath() {
         val sut = SearchResultEntry()
@@ -34,46 +33,49 @@ class SearchResultEntryTest {
             "/version/testVersion.txt",
             setPath(
                 "http://localhost/nc/index.php/apps/files/?dir=/version&scrollto=testVersion.txt",
-                sut
-            )
+                sut,
+            ),
         )
         assertEquals(
             "/_act/test.txt",
-            setPath("http:/localhost/nc/index.php/apps/files/?dir=/_act&scrollto=test.txt", sut)
+            setPath("http:/localhost/nc/index.php/apps/files/?dir=/_act&scrollto=test.txt", sut),
         )
         assertEquals(
             "/_version/test.md",
-            setPath("http://localhost/nc/index.php/apps/files/?dir=/_version&scrollto=test.md", sut)
+            setPath("http://localhost/nc/index.php/apps/files/?dir=/_version&scrollto=test.md", sut),
         )
         assertEquals(
             "/allTypes/testWithLink.md",
             setPath(
                 "http://localhost/nc/index.php/apps/files/?dir=/allTypes&scrollto=testWithLink.md",
-                sut
-            )
+                sut,
+            ),
         )
         assertEquals(
             "/Notes/ShoppingList/Test 123.txt",
             setPath(
                 "http://localhost/nc/index.php/apps/files/" +
                     "?dir=/Notes/ShoppingList&scrollto=Test%20123.txt",
-                sut
-            )
+                sut,
+            ),
         )
         assertEquals(
             "/[Reportage] Test",
             setPath(
                 "http://localhost/nc/index.php/apps/files/?dir=/&scrollto=%5BReportage%5D%20Test",
-                sut
-            )
+                sut,
+            ),
         )
         assertEquals(
             "/file.txt",
-            setPath("http://localhost/nc/index.php/apps/files/?dir=/&scrollto=file.txt", sut)
+            setPath("http://localhost/nc/index.php/apps/files/?dir=/&scrollto=file.txt", sut),
         )
     }
 
-    private fun setPath(path: String, entry: SearchResultEntry): String? {
+    private fun setPath(
+        path: String,
+        entry: SearchResultEntry,
+    ): String? {
         entry.resourceUrl = path
 
         return entry.remotePath()

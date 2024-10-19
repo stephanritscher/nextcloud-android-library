@@ -49,7 +49,7 @@ class ReadFileRemoteOperationIT : AbstractIT() {
         val remotePath = "/test.md"
         assertTrue(
             UploadFileRemoteOperation(filePath, remotePath, "text/markdown", RANDOM_MTIME)
-                .execute(client).isSuccess
+                .execute(client).isSuccess,
         )
 
         val result = ReadFileRemoteOperation(remotePath).execute(client)
@@ -80,10 +80,10 @@ class ReadFileRemoteOperationIT : AbstractIT() {
             ToggleEncryptionRemoteOperation(
                 remoteFile.localId,
                 remotePath,
-                true
+                true,
             )
                 .execute(client)
-                .isSuccess
+                .isSuccess,
         )
 
         // re-read

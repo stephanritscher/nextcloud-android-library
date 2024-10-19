@@ -32,5 +32,5 @@ enum class DashBoardButtonType {
     MORE,
 
     @SerializedName("setup")
-    SETUP
+    SETUP,
 }

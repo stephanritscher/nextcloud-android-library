@@ -46,7 +46,7 @@ class PreviewObject() {
         mimeTypeIcon: Boolean?,
         mimeType: String?,
         view: String?,
-        filename: String?
+        filename: String?,
     ) : this() {
         this.fileId = fileId
         this.source = source

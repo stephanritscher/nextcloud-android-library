@@ -27,5 +27,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DashboardWidgetList(
-    val widgets: Map<String, DashboardWidget> = HashMap()
+    val widgets: Map<String, DashboardWidget> = HashMap(),
 ) : Parcelable

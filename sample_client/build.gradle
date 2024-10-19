@@ -1,44 +1,48 @@
 buildscript {
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath 'com.hiya:jacoco-android:0.2'
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.13'
+        classpath 'com.android.tools.build:gradle:8.6.0'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.24'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.22.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.7"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath 'com.karumi:shot:5.14.1'
-        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
-        classpath "org.jacoco:org.jacoco.report:$jacoco_version"
-        classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:11.0.0"
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.hiya.jacoco-android'
+apply from: "$rootProject.projectDir/jacoco.gradle"
 
 repositories {
     google()
 }
 
 android {
-    compileSdkVersion 31
+    compileSdk 34
 
     lintOptions {
         abortOnError false
     }
 
     packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
+        resources {
+            excludes += 'META-INF/versions/9/OSGI-INF/MANIFEST*'
+            pickFirst 'MANIFEST.MF' // workaround for duplicated manifest on some dependencies
+        }
+
     }
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 34
+ 
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    namespace 'com.owncloud.android.lib.sampleclient'
 }
 
 dependencies {
     implementation project(path: ':library')
-    implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
+    implementation "commons-httpclient:commons-httpclient:3.1@jar"
     implementation "org.jacoco:org.jacoco.agent:$jacoco_version:runtime"
 }
